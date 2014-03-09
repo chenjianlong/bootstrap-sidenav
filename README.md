@@ -30,7 +30,7 @@ Bootstrap official website style sidebar navigation plugin !
           top: 125,
           bottom: 0
         },
-        back_to_top: {
+        backtoTop: {
           href: "top",
           text: "Back to top"
         }
@@ -51,6 +51,6 @@ headers to generate sidebar navigation
 
 same meaning as Bootstrap Affix plugin
 
-##### back\_to\_top
+##### backtoTop
 
-back\_top\_top relate info, if you don't need just ignore it
+backtopTop relate info, if you don't need just ignore it

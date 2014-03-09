@@ -89,14 +89,14 @@
       }
       this.$menu.find('ul').append(this.$list);
 
-      var back_to_top = this.options.back_to_top;
-      if (typeof back_to_top === 'object' &&
-          back_to_top.hasOwnProperty('href') &&
-          typeof back_to_top['href'] === 'string' &&
-          back_to_top.hasOwnProperty('text') &&
-          typeof back_to_top['text'] === 'string') {
-        var $href = this.options.back_to_top['href'],
-          $text = this.options.back_to_top['text'];
+      var backtoTop = this.options.backtoTop;
+      if (typeof backtoTop === 'object' &&
+          backtoTop.hasOwnProperty('href') &&
+          typeof backtoTop['href'] === 'string' &&
+          backtoTop.hasOwnProperty('text') &&
+          typeof backtoTop['text'] === 'string') {
+        var $href = backtoTop['href'],
+          $text = backtoTop['text'];
         var backElem = '<a class="back-to-top" href="#' +
           $href + '">' + $text + '</a>';
         this.$menu.append(backElem);
@@ -137,6 +137,6 @@
       top: 125,
       bottom: 0
     },
-    back_to_top: null
+    backtoTop: null
   };
 })(jQuery);
