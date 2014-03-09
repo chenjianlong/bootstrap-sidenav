@@ -53,4 +53,4 @@ same meaning as Bootstrap Affix plugin
 
 ##### back\_to\_top
 
-back\_top\_top relate info, if you don't need back-to-top just ignore it
+back\_top\_top relate info, if you don't need just ignore it
