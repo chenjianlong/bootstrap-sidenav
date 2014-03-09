@@ -1,8 +1,7 @@
-
 Bootstrap sidenav
 =================
 
-Bootstrap official website style sidebar navigation plugin!
+Bootstrap official website style sidebar navigation plugin !
 
 ### Dependences
 
