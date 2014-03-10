@@ -20,8 +20,8 @@
       this.options = options;
 
       this.initViews();
-      this.$menu.affix(this.options);
       $('body').scrollspy({target: '.bs-sidebar'});
+      this.$menu.affix(this.options);
     },
 
     initViews: function() {
