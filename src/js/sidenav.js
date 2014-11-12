@@ -37,6 +37,13 @@
           ].join(''));
       this.$list = '';
 
+      // Support String type, for example use: data-hs="h1, h2, h3"
+      if (typeof this.options.hs === 'string') {
+        this.options.hs = $.map(this.options.hs.split(','), function (h) {
+          return $.trim(h); // remove space
+        });
+      }
+
       this.$el.find(this.options.hs.join(',')).each(function(i) {
         var $this = $(this),
         $div,
