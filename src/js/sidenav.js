@@ -1,7 +1,8 @@
 /*
  * @file sidenav.js
  * @author Jianlong Chen <jianlong99@gmail.com>
- * @date 2014-03-08 
+ * @date 2014-03-08
+ * @update 2014-11-12
  */
 
 (function($) {
@@ -20,8 +21,7 @@
       this.options = options;
 
       this.initViews();
-      $('body').scrollspy({target: '.bs-sidebar'});
-      this.$menu.affix(this.options);
+      this.initAffix();
     },
 
     initViews: function() {
@@ -96,19 +96,31 @@
       }
       this.$menu.find('ul').append(this.$list);
 
-      var backtoTop = this.options.backtoTop;
-      if (typeof backtoTop === 'object' &&
-          backtoTop.hasOwnProperty('href') &&
-          typeof backtoTop['href'] === 'string' &&
-          backtoTop.hasOwnProperty('text') &&
-          typeof backtoTop['text'] === 'string') {
-        var $href = backtoTop['href'],
-          $text = backtoTop['text'];
-        var backElem = '<a class="back-to-top" href="#' +
-          $href + '">' + $text + '</a>';
-        this.$menu.append(backElem);
-      }
+      var backElem = '<a class="back-to-top" href="' +
+        this.options.toTopHref + '">' + this.options.toTopText + '</a>';
+      this.$menu.append(backElem);
+
       $(this.options.container).append(this.$menu);
+    },
+
+    initAffix: function() {
+      $('body').scrollspy({target: '.bs-sidebar'});
+
+      if (typeof this.options.top === 'undefined') {
+        this.options.top = this.options.container;
+      }
+      if (typeof this.options.top === 'string' && $(this.options.top).length) {
+        this.options.top = $(this.options.top).offset().top;
+      }
+      if (typeof this.options.bottom === 'string' && $(this.options.bottom).length) {
+        this.options.bottom = $(this.options.bottom).outerHeight(true);
+      }
+      this.$menu.affix({
+        offset: {
+          top: this.options.top || 0,
+          bottom: this.options.bottom || 0
+        }
+      });
     }
   };
 
@@ -136,14 +148,10 @@
   $.fn.sideNav.defaults = {
     container: 'body',
     hs: ['h2', 'h3', 'h4'],
-    offset: {
-      top: 125,
-      bottom: 0
-    },
-    backtoTop: {
-      href: 'top',
-      text: 'Back to top'
-    }
+    top: undefined,
+    bottom: undefined,
+    toTopHref: '#top',
+    toTopText: 'Back to top'
   };
 
   $(function () {
