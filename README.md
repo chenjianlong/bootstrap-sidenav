@@ -1,7 +1,7 @@
 Bootstrap sidenav
 =================
 
-Bootstrap official website style sidebar navigation plugin !
+Bootstrap official website style sidebar navigation plugin!
 
 ### Dependences
 
@@ -19,7 +19,7 @@ Bootstrap official website style sidebar navigation plugin !
 <link rel="stylesheet" href="sidenav.css">
 ```
 
-#### includde JavaScript
+#### include JavaScript
 
 ```html
 <script src="jquery.min.js"></script>
