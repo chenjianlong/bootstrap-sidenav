@@ -79,14 +79,21 @@ Options can be passed via data attributes or JavaScript. For data attributes, ap
             <td>data-container</td>
             <td>String</td>
             <td>'body'</td>
-            <td>Element to contain the sidebar navigation</td>
+            <td>Element to contain the sidebar navigation.</td>
         </tr>
         <tr>
             <td>hs</td>
             <td>data-hs</td>
             <td>Array/String</td>
             <td>['h2', 'h3', 'h4']</td>
-            <td>Headers to generate sidebar navigation</td>
+            <td>Headers to generate sidebar navigation.</td>
+        </tr>
+        <tr>
+            <td>smartId</td>
+            <td>data-smart-id</td>
+            <td>Boolean</td>
+            <td>false</td>
+            <td>Set true to use the ID link with title text.</td>
         </tr>
         <tr>
             <td>top</td>

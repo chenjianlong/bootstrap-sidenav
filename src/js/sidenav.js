@@ -51,7 +51,8 @@
         title = $this.text(),
         level = $.inArray(name, that.options.hs) + 1,
         nums = [],
-        index;
+        index,
+        id;
 
         if (level - preLevel > 1) {
           return;
@@ -69,10 +70,17 @@
         });
         index = nums.join('-');
 
-        $div = $('<div id="sideNavTitle' + index + '"></div>');
+        id = 'sideNavTitle' + index;
+
+        if (that.options.smartId) {
+          id = $.trim($(this).text()).toLowerCase();
+          id = id.replace(/ /g, '-');
+          id = id.replace(/'|"/g, '');
+        }
+        $div = $('<div id="' + id + '"></div>');
         $div.insertAfter($this).append($this);
 
-        var aElem = '<a href="#sideNavTitle' + index + '">' + title + '</a>';
+        var aElem = '<a href="#' + id + '">' + title + '</a>';
         if (level === 1 && preLevel === 0) {
           that.$list += '<li class="active">' + aElem;
         } else if (level === preLevel) {
@@ -148,6 +156,7 @@
   $.fn.sideNav.defaults = {
     container: 'body',
     hs: ['h2', 'h3', 'h4'],
+    smartId: false,
     top: undefined,
     bottom: undefined,
     toTopHref: '#top',
