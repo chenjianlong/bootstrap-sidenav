@@ -1,7 +1,8 @@
 /*
  * @file sidenav.js
  * @author Jianlong Chen <jianlong99@gmail.com>
- * @date 2014-03-08 
+ * @date 2014-03-08
+ * @update 2014-11-12
  */
 
 (function($) {
@@ -20,8 +21,7 @@
       this.options = options;
 
       this.initViews();
-      $('body').scrollspy({target: '.bs-sidebar'});
-      this.$menu.affix(this.options);
+      this.initAffix();
     },
 
     initViews: function() {
@@ -37,6 +37,13 @@
           ].join(''));
       this.$list = '';
 
+      // Support String type, for example use: data-hs="h1, h2, h3"
+      if (typeof this.options.hs === 'string') {
+        this.options.hs = $.map(this.options.hs.split(','), function (h) {
+          return $.trim(h); // remove space
+        });
+      }
+
       this.$el.find(this.options.hs.join(',')).each(function(i) {
         var $this = $(this),
         $div,
@@ -44,7 +51,8 @@
         title = $this.text(),
         level = $.inArray(name, that.options.hs) + 1,
         nums = [],
-        index;
+        index,
+        id;
 
         if (level - preLevel > 1) {
           return;
@@ -62,10 +70,17 @@
         });
         index = nums.join('-');
 
-        $div = $('<div id="sideNavTitle' + index + '"></div>');
+        id = 'sideNavTitle' + index;
+
+        if (that.options.smartId) {
+          id = $.trim($(this).text()).toLowerCase();
+          id = id.replace(/ /g, '-');
+          id = id.replace(/'|"/g, '');
+        }
+        $div = $('<div id="' + id + '"></div>');
         $div.insertAfter($this).append($this);
 
-        var aElem = '<a href="#sideNavTitle' + index + '">' + title + '</a>';
+        var aElem = '<a href="#' + id + '">' + title + '</a>';
         if (level === 1 && preLevel === 0) {
           that.$list += '<li class="active">' + aElem;
         } else if (level === preLevel) {
@@ -89,34 +104,42 @@
       }
       this.$menu.find('ul').append(this.$list);
 
-      var backtoTop = this.options.backtoTop;
-      if (typeof backtoTop === 'object' &&
-          backtoTop.hasOwnProperty('href') &&
-          typeof backtoTop['href'] === 'string' &&
-          backtoTop.hasOwnProperty('text') &&
-          typeof backtoTop['text'] === 'string') {
-        var $href = backtoTop['href'],
-          $text = backtoTop['text'];
-        var backElem = '<a class="back-to-top" href="#' +
-          $href + '">' + $text + '</a>';
-        this.$menu.append(backElem);
-      }
+      var backElem = '<a class="back-to-top" href="' +
+        this.options.toTopHref + '">' + this.options.toTopText + '</a>';
+      this.$menu.append(backElem);
+
       $(this.options.container).append(this.$menu);
+    },
+
+    initAffix: function() {
+      $('body').scrollspy({target: '.bs-sidebar'});
+
+      if (typeof this.options.top === 'undefined') {
+        this.options.top = this.options.container;
+      }
+      if (typeof this.options.top === 'string' && $(this.options.top).length) {
+        this.options.top = $(this.options.top).offset().top;
+      }
+      if (typeof this.options.bottom === 'string' && $(this.options.bottom).length) {
+        this.options.bottom = $(this.options.bottom).outerHeight(true);
+      }
+      this.$menu.affix({
+        offset: {
+          top: this.options.top || 0,
+          bottom: this.options.bottom || 0
+        }
+      });
     }
-  }
+  };
 
   $.fn.sideNav = function() {
     var option = arguments[0],
       args = arguments,
       value;
 
-    if (typeof option !== 'object') {
-      throw "Invalid option: " + option;
-    }
-
     this.each(function() {
       var $this = $(this), data = $this.data('sideNav'),
-      options = $.extend({}, $.fn.sideNav.defaults, option);
+      options = $.extend({}, $.fn.sideNav.defaults, $this.data(), option);
 
       if (!data) {
         data = new SideNav($this);
@@ -133,10 +156,14 @@
   $.fn.sideNav.defaults = {
     container: 'body',
     hs: ['h2', 'h3', 'h4'],
-    offset: {
-      top: 125,
-      bottom: 0
-    },
-    backtoTop: null
+    smartId: false,
+    top: undefined,
+    bottom: undefined,
+    toTopHref: '#top',
+    toTopText: 'Back to top'
   };
+
+  $(function () {
+    $('[data-toggle="sidenav"]').sideNav();
+  });
 })(jQuery);
