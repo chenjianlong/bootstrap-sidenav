@@ -30,7 +30,7 @@ Bootstrap official website style sidebar navigation plugin !
 #### Via data attritube
 
 ```html
-<div id="post" data-toggle="sidenav" data-container="#sidenav">
+<div id="post" data-toggle="sidenav" data-container="#sidenav" data-hs="h1, h2, h3">
 ```
 
 #### Via JavaScript
