@@ -14,28 +14,41 @@ Bootstrap official website style sidebar navigation plugin !
 
 #### include CSS style
 
-    <link rel="stylesheet" href="bootstrap.min.css" />
-    <link rel="stylesheet" href="sidenav.css" />
+```html
+<link rel="stylesheet" href="bootstrap.min.css">
+<link rel="stylesheet" href="sidenav.css">
+```
 
-#### includde js script
+#### includde JavaScript
 
-    <script src="jquery.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script src="sidenav.js"></script>
-    <script>
-      $('#post').sideNav({
-        container: '#menu',
-        hs: ['h3', 'h4', 'h5'],
-        offset: {
-          top: 125,
-          bottom: 0
-        },
-        backtoTop: {
-          href: "top",
-          text: "Back to top"
-        }
-      });
-    </script>
+```html
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="sidenav.js"></script>
+```
+
+#### Via data attritube
+
+```html
+<div id="post" data-toggle="sidenav" data-container="#sidenav">
+```
+
+#### Via JavaScript
+
+```js
+$('#post').sideNav({
+    container: '#sidenav',
+    hs: ['h3', 'h4', 'h5'],
+    offset: {
+        top: 125,
+        bottom: 0
+    },
+    backtoTop: {
+        href: 'top',
+        text: 'Back to top'
+    }
+});
+```
 
 #### pararms
 

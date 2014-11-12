@@ -103,20 +103,16 @@
       }
       $(this.options.container).append(this.$menu);
     }
-  }
+  };
 
   $.fn.sideNav = function() {
     var option = arguments[0],
       args = arguments,
       value;
 
-    if (typeof option !== 'object') {
-      throw "Invalid option: " + option;
-    }
-
     this.each(function() {
       var $this = $(this), data = $this.data('sideNav'),
-      options = $.extend({}, $.fn.sideNav.defaults, option);
+      options = $.extend({}, $.fn.sideNav.defaults, $this.data(), option);
 
       if (!data) {
         data = new SideNav($this);
@@ -137,6 +133,13 @@
       top: 125,
       bottom: 0
     },
-    backtoTop: null
+    backtoTop: {
+      href: 'top',
+      text: 'Back to top'
+    }
   };
+
+  $(function () {
+    $('[data-toggle="sidenav"]').sideNav();
+  });
 })(jQuery);
