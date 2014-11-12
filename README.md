@@ -50,7 +50,7 @@ $('#post').sideNav({
 });
 ```
 
-#### pararms
+#### Params
 
 ##### container
 
